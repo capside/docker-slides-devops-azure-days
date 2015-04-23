@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Buscando paz mental con Docker</title>
+
+		<meta name="description" content="Cómo utilizar Docker para facilitar el desarrollo y la administración de sistemas.">
+		<meta name="author" content="Javi Moreno">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		
+		<style>
+			
+			strong {
+				color : #3b6fcc;
+			}
+			
+			.push-right {
+				float : right;
+			}
+			
+			img.box {
+				border : 2px solid silver !important;
+				padding : 6px !important;
+			}
+			
+			p.author {
+				font-size: 66%;
+				font-style: italic;
+			}
+			
+			.reveal blockquote {
+				background: rgba(255, 255, 255, 0.25);
+			}
+			
+			.reveal .slide-background.present.clean {
+  			    opacity: 0.25;
+			}
+			
+			ul {
+				list-style-type: none !important;
+			}
+			
+			.impacting {
+				font-size: 150% !important;
+			}
+		</style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<img src="img/logo_capside.jpeg" alt="logo capside" width="50"
+			     style="position: fixed; left: 20px; bottom: 45px; opacity:0.5;">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background="img/hierba.jpg" class="clean">
+					<h1>Docker</h1>
+					<h3>Buscando paz mental en un departamento de <strong>IT</strong> moderno</h3>
+					<p style="margin-top: 5em; text-align: right;">
+						<small>imagen por <a href="http://studio7designs.com/free-nature-stock-photographs/">studio 7 designs</a></small>
+					</p>
+				</section>
+
+				<section data-background="img/menorca.jpg" class="clean">
+					<img src="img/avatar-javi.jpg" alt="Fotografía javi" width="30%" class="box" style="float : right; margin-left: 2em;">
+					<h2>Javi Moreno</h2>
+					<p style="margin-top:1em;">
+						ADN de <a href="http://github.com/ciberado">developer</a>, metido en cloud y actualmente impartiendo cursos
+						y dando charlas como si el mundo terminase mañana
+					</p>
+					<p style="margin-top:2em;">
+					   Dime que me sigues aunque sea mentira: <a href="http://twitter.com/ciberado">@ciberado</a>
+					</p>
+				</section>
+
+			
+				<section data-background="img/menorca.jpg" class="clean">
+					<img src="img/avatar-capside.png" alt="Logo Capside" style="border : none; " >
+					<p style="margin-top:1em;">
+						Expertos en arquitecturas de sistemas <strong>IT</strong>: las diseñamos, las subministramos, las mantenemos y las administramos 
+					</p>
+					<p style="margin-top:2em;">
+					   <a href="http://twitter.com/capside">@capside</a> en Twitter 
+					   y <a href="http://www.capside.com">capside.com</a> en la web
+					</p>
+				</section>
+
+				<section data-background="img/cobol.gif" class="clean">
+					<h2>Contra COBOL vivíamos mejor</h2>
+					<p  style="float: left; width:33%">
+						<img src="img/happy-cobol.jpg" alt="Programador cobol feliz">
+						Por <a href="https://www.flickr.com/photos/philmanker/5836397775/in/photostream/">Phil Marker</a> (CC)
+					</p>
+					<ul style="margin-top: 1em;">
+						<li>Un sistema operativo</li>
+						<li>Un filesystem</li>
+						<li>Un runtime</li>
+						<li>Un lenguaje</li>
+						<li>Un editor y un compilador</li>
+						<li>Una base de datos</li>
+						<li>Una forma de escalar</li>
+						<li>Unos pocos cientos de usuarios</li>
+						<li style="font-weight: bold;">Un ritmo de innovación estable</li>
+					</ul>
+				</section>
+				
+				<section data-background="img/complicated-road.jpg" class="clean">
+					<h2>En la era web todo se complica</h2>
+					<ul style="margin-top: 1em;">
+						<li>Debian, Ubuntu, Redhat, Suse, W2008, W2012</li>
+						<li>/var, /opt, /lib, Mis Documentos, Documents</li>
+						<li>Java, php, C#, VBNet, nodejs, perl, ruby</li>
+						<li>Java 6, 7, 8, .Net 3.5 4, 4.5, php 5, php 6</li>
+						<li>Eclipse, Visual Studio, Netbeans, Brackets, Grunt</li>
+						<li>Postresql, SQLServer, MongoDB, Redis</li>
+						<li>Azure, AWS, Google Cloud, VMWare</li>
+						<li>Toneladas y toneladas de usuarios</li>
+						<li style="font-weight: bold;">Ritmo de <strong>innovación</strong> exponencialmente acelerado</li>
+					</ul>
+				</section>
+				
+				<section data-background="img/sad-dpto.jpg" class="clean">
+					<h2 >Un departamento de <strong>IT</strong> actual</h2>
+					<!--
+					<img src="img/sad-dpto.jpg" alt="Conflictos en el departamento" width="25%" style="float:right; margin-top:2em;">
+					-->
+					<blockquote>"En mi equipo funciona" <p class="author">(el developer)</p></blockquote>
+					<blockquote>"Yo solo meto el .war" <p class="author">(el de operaciones)</p></blockquote>
+					<blockquote>"No." <p class="author">(finanzas, al pedir presupuesto para 20 máquinas más)</p></blockquote>
+					<!--
+					<blockquote>"Dale mamita que la cosa está rica" <p class="author">(Pitbull)</p></blockquote>
+					-->
+					<aside class="notes">
+						Menciona microservicios y explosión de pequeñas máquinas.
+					</aside>
+				</section>
+				
+				<section data-background="img/docker-whales-transparent.png" class="clear">
+					
+					<h2 style="color: white; font-size:300%;">Respira, <br/>todo irá bien.</h2>
+					
+				</section>
+				
+				<section data-background="img/jules.jpg" class="clean">
+					<h2>Si comienzo a hablar de barquitos, grúas y puertos <strong class="impacting">disparad</strong></h2>
+				</section>
+				
+				<section data-background="img/background-1.jpg" class="clean">
+					<h2>Layers y el Union File System</h2>
+					<style >
+
+						#ufs tr td {
+							text-align: center;
+							
+						}
+					</style>
+					<table width="100%" id="ufs" cellspacing="4" cellpadding="4">
+						<tr>
+							<td></td>
+							<td style="background-color : rgba(118, 170, 118, 0.5)">App A</td>
+							<td colspan="3"></td>
+						</tr>
+						<tr>
+							<td style="background-color : rgba(112, 115, 142, 0.5)">Site corporativo</td>
+							<td style="background-color : rgba(28, 211, 28, 0.5)">Php 5</td>
+							<td style="background-color : rgba(114, 108, 59, 0.5)">App B</td>
+							<td style="background-color : rgba(190, 21, 125, 0.5)">App C</td>
+							<td style="background-color : rgba(221, 85, 245, 0.5)">App D</td>
+						</tr>
+						<tr>
+							<td colspan="2"  style="background-color : rgba(190, 153, 47, 0.5)">Apache httpd</td>
+							<td  style="background-color : rgba(85, 47, 244, 0.5)">Java VM 7</td>
+							<td  colspan="2"style="background-color : rgba(100, 63, 25, 0.5)">Java VM 8</td>
+						</tr>
+						<tr>
+							<td colspan="5"  style="background-color : rgba(212, 55, 55, 0.5)">Sistema Operativo</td>							
+						</tr>
+						
+					</table>
+					<p></p>
+				</section>
+				
+				<section data-background="img/background-3.jpg" class="clean">
+					
+					<blockquote style="margin-top: 1em; float : left;">
+						<h3>Imágenes</h3>
+						En terminología Docker una capa del UFS de <strong>solo lectura</strong> se denomina una <i>imagen</i> 
+					</blockquote>
+					
+					<blockquote style="float: right;">
+						<h3>Contenedor</h3>
+						Un conjunto de procesos <strong>aislados</strong> arrancados a partir de una imagen, más un layer R/W e
+						información extra como la configuración de red
+					</blockquote>
+					
+					<aside class="notes">
+						Al ser parado un contenedor su estado se mantiene en el sistema (ps -a).
+						Puede ser rearrancado o consolidado como una imagen (commit).
+						Se le puede asignar nº procesadores, afinidad, prioridad y memoria. Es más
+						complicado fijar cuota de disco y bandwidth.
+						Se basa en contenedores de linux así que todavía no está disponible en windows.
+					</aside>
+					
+				</section>
+				
+				<section data-background="img/background-4.jpg" class="clean">
+				
+					<blockquote style="margin-top: 1em; float : left;">
+						<h3>Host</h3>
+						La máquina que ejecuta los contenedores a partir de las imágenes disponibles. 
+					</blockquote>
+					
+					<blockquote style="float: right;">
+						<h3>Boot2Docker</h3>
+						Una máquina virtual linux que facilita el uso de Docker sobre <strong>Windows</strong> 
+					</blockquote>
+					
+					<aside class="notes">
+						
+					</aside>
+					
+				</section>
+				
+				<section data-background="img/background-5.jpg" class="clean">
+					
+					<blockquote style="margin-top: 1em; float : left;">
+						<h3>Docker Hub</h3>
+						Un registro de imágenes gestionado por <a href="http://registry.hub.docker.com">docker.com</a>
+						que utiliza <a href="https://github.com/docker/distribution">Docker Distribution</a>
+					</blockquote>
+					
+					<blockquote style="float: right;">
+						<h3>CoreOS Registry</h3>		
+						Una alternativa compatible mantenida por <a href="https://coreos.com/products/enterprise-registry/">Core OS</a> 
+						distribuída como aplicación				
+					</blockquote>
+				</section>
+				
+				<section data-background="img/alturron.jpg" class="clean">
+					<h2 style="font-size:400%;">¡Al Turrón!</h2>
+					<p>Demo time</p>
+				</section>
+			
+				
+				<section data-background="img/background-a.jpg" class="clean">
+					<h2>Inicializar boot2docker</h2>
+					<pre><code >
+	\>boot2docker download <-- descarga la imagen 
+	\>boot2docker start    <-- arranca la máquina virtual 
+	\>boot2docker ip       <-- ip de la máquina virtual
+	\>boot2docker ssh      <-- por si no tenemos ssh a mano 
+	\>boot2docker stop     <-- para la máquina virtual 
+					</code></pre>					
+					<aside class="notes">
+						La ip de la máquina virtual facilita el uso de ssh. El
+						pk se encuentra en la carpeta .ssh. El
+						password es tcuser:
+						ssh -i .ssh\id_boot2docker -p 2022 docker@127.0.0.1
+					</aside>
+				</section>
+				
+				<section data-background="img/background-b.jpg" class="clean">
+					<h2>Descargando imagen básica</h2>
+					<pre><code >
+$>docker login                  <-- Autentificamos en el hub
+$>docker search busybox         <-- Busybox es un toolset compacto
+$>docker pull progrium/busybox  <-- Imagen basada en busybox
+$>docker images	                <-- Lista las imágenes descargadas
+					</code></pre>					
+					<aside class="notes">
+						Docker es el comando que controla el sistema
+						creds: ciberado / ****** / email
+						Como dice el último comando Busybox solo ocupa cinco megas!!!
+					</aside>
+				</section>
+
+				<section data-background="img/background-c.jpg" class="clean">
+					<h2>Probando contenedores</h2>
+					<pre><code >
+$>docker run -t -i --name old_bluebox progrium/busybox /bin/sh
+ls
+echo "Silent will fall." > dr.txt
+ls
+exit
+$>docker ps
+$>docker ps -a
+$>docker run -t -i --name waiting_girl progrium/busybox /bin/sh
+ls
+					</code></pre>					
+					<aside class="notes">
+						Los cambios realizados en los contenedores no se
+						transmiten a las imágenes. Es necesario crear una
+						nueva imagen con commit.
+					</aside>
+				</section>
+	
+				<section data-background="img/background-d.jpg" class="clean">
+					<h2 style="font-size:400%;">Arquitecto</h2>					
+					<p>Nodejs para triunfar</p>
+				</section>
+			
+				<section data-background="img/background-e.jpg" class="clean">
+					<h2>Contenedor con nodejs</h2>
+					<pre><code >
+$>docker run -t -i --name the_master progrium/busybox /bin/sh
+
+opkg-install wget bash git libstdcpp
+wget http://nodejs.org/dist/v0.10.36/node-v0.10.36-linux-x64.tar.gz
+gunzip -d node-v0.10.36-linux-x64.tar.gz
+tar -xf node-v0.10.36-linux-x64.tar
+rm -f /lib/libpthread.so.0
+ln -s /lib/libpthread-2.18.so /lib/libpthread.so.0
+rm node-v0.10.36-linux-x64.tar
+mv /node-v0.10.36-linux-x64 node
+					</code></pre>					
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-background="img/background-3.jpg" class="clean">
+					<h2>Generando imagen con nodejs</h2>
+					<pre><code >
+$>docker ps -a
+$>docker commit -m "Busybox with nodejs 0.10.36" -a "Javi Moreno" \
+         sonic_screwdriver capside/nodejs:v1036
+$>docker images	
+$>docker run -t -i -e PATH=$PATH:/node/bin  capside/nodejs:v1036 \
+         node --version						
+$>docker push capside/nodejs:v1036         
+					</code></pre>					
+					<aside class="notes">
+					¡La imagen creada solo tiene 26 megas!
+					Tras la subida de la imagen podemos verla en el hub
+					</aside>
+				</section>
+
+				<section data-background="img/background-g.jpg" class="clean">
+					<h2>Automatizando con Dockerfiles</h2>
+					<pre><code >
+FROM progrium/busybox 
+MAINTAINER Javi Moreno &lt;javi.moreno@capside.com>
+RUN  opkg-install wget bash git libstdcpp && \ 
+ wget http://nodejs.org/dist/v0.10.38/node-v0.10.38-linux-x64.tar.gz && \ 
+ gunzip -d node-v0.10.38-linux-x64.tar.gz && \ 
+ tar -xf node-v0.10.38-linux-x64.tar && \ 
+ rm -f /lib/libpthread.so.0 && \ 
+ ln -s /lib/libpthread-2.18.so /lib/libpthread.so.0 && \ 
+ rm node-v0.10.38-linux-x64.tar && \ 
+ mv /node-v0.10.38-linux-x64 node
+ENV PATH=$PATH:/node/bin
+					</code></pre>					
+					<aside class="notes">
+					Recordar que si no utilizamos un único RUN se crearán
+					más layers de los necesarios.
+					El script debería crear una imagen con el 10.38
+					</aside>
+				</section>
+
+				<section data-background="img/background-h.jpg" class="clean">
+					<h2>Creando imagen por Dockerfile</h2>
+					<pre><code >
+$>mkdir capside && cd capside && vi Dockerfile
+$>docker build -t capside/nodejs:v1038 .
+$>docker images
+					</code></pre>					
+					<aside class="notes">
+					</aside>
+				</section>
+						
+
+				<section data-background="img/background-i.jpg" class="clean">
+					<h2 style="font-size:400%;">Developer</h2>					
+					<p>Vamos a montar webservices</p>
+				</section>
+			
+				<section data-background="img/background-2.jpg" class="clean">
+					<h2>Contenedores en desarrollo</h2>
+					<pre><code >
+\>start boot2docker ssh -vnNTL 8888:localhost:8888 
+$>docker run -t -i -v /c/Users/ciberado/ms/ws:/data \
+             -p 8888:8888 capside/nodejs:v1036 /bin/sh
+					</code></pre>					
+					<aside class="notes">
+					Explicar -v y -p
+					Conectar boot2docker a windows: 
+					https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md
+					
+					Editar desde brackets y ver el resultado en el contenedor.
+					Recordar que no se persiste en imagen.
+					</aside>
+				</section>
+
+				<section data-background="img/background-d.jpg" class="clean">
+					<h2>Código del Webservice</h2>
+					<pre><code >
+var http = require('http');
+
+var server = http.createServer(function (request, response) {
+  console.log('Knock knock.');
+  response.writeHead(200, {"Content-Type": "application/json"});
+  var data = { 'message' : 'Hello Sweetie' };
+  response.end(JSON.stringify(data) + '\n');
+});
+
+server.listen(8888);
+
+console.log('I hate you.');
+					</code></pre>					
+					<aside class="notes">
+					Remarcar que utiliza el puerto 8888.
+					</aside>
+				</section>
+
+				<section data-background="img/background-8.jpg" class="clean">
+					<h2>Dockerfile para despliegue</h2>
+					<pre><code >
+FROM capside/nodejs:v1036 
+MAINTAINER Javi Moreno &lt;javi.moreno@capside.com>
+RUN wget https://gist.githubusercontent.com/ciberado/da6870624c9966327d5c/raw/de16df596f0dc9d3f05b6cca7fe5ed29be44e33a/RiverSongWebservice.js --no-check-certificate 
+
+#Un contenedor linkado podría acceder a 8888
+EXPOSE 8888
+
+CMD ["/node/bin/node", "RiverSongWebservice.js"]					
+					</code></pre>					
+					<aside class="notes">
+					De esta manera preparamos la imagen para desplegar.
+					Probablemente JENKINS es quien se encarga de esta tarea.
+					</aside>
+				</section>
+
+				<section data-background="img/background-7.jpg" class="clean">
+					<h2>Imagen de despliegue</h2>
+					<pre><code >
+$>mkdir capside && cd capside
+$>cp /c/Users/ciberado/ms/dockerfile-capside-riversong/Dockerfile .
+$>cat Dockerfile
+$>docker build -t capside/riversong:v0.0.1 .
+$>docker images
+$>docker push capside/riversong:v0.0.1
+					</code></pre>					
+					<aside class="notes">
+					Remarca que probablemente será jenkins el encargado
+					de llevar a cabo este trabajo.
+					</aside>
+				</section>
+
+				<section data-background="img/background-6.jpg" class="clean">
+					<h2 style="font-size:400%;">Operaciones</h2>					
+					<p>Rock'n'Roll!</p>
+				</section>
+			
+				<section data-background="img/background-5.jpg" class="clean">
+					<h2>Ejecutando en producción</h2>
+					<pre><code >
+$>docker run -p 8888 -d --name river_song1 capside/riversong:v0.0.1 
+$>docker ps
+$>docker logs river_song1 
+$>docker inspect river_song1 
+$>docker inspect -f '{{ .NetworkSettings.IPAddress }}' river_song1 
+$>docker inspect -f '{{ .NetworkSettings.Ports }}' river_song1 
+$>docker run -p 8888 -d --name river_song2 capside/riversong:v0.0.1 
+					</code></pre>					
+					<aside class="notes">
+					<ol>
+						<li>El puerto en desarrollo puede ser el mismo siempre,
+					en producción se elige uno libre.</li>
+						<li>¡Todo es automatizable!</li>
+						<li>Remarcar el parámetro -p</li>
+					</ol>
+					</aside>
+				</section>
+
+				<section data-background="img/docker-whales-transparent.png" class="clear">
+					
+					<h2 style="color: white; font-size:300%;">
+						Ahora mismo deberías estar palote
+					</h2>
+					
+				</section>
+			
+				<section data-background="img/background-1.jpg" class="clean">
+					<h2>En próximos capítulos...</h2>
+					<ul style="margin-top: 1em;">
+						<li>Limitación de recursos</li>
+						<li>Dockerizando bases de datos</li>
+						<li>Optimización de imágenes</li>
+						<li>Linkado de contenedores</li>
+						<li>Registro de imágenes on-premise</li>
+						<li>Copias de seguridad</li>
+						<li>Automatización en profundidad</li>
+						<li>Swarm, Kubernetes, Mesos...</li>
+						<li>Patrones de escalado</li>
+					</ul>
+				</section>		
+				
+				<section data-background="img/menorca.jpg" class="clean">
+					<p style="float:left; font-size:400%;"><a href="http://www.twitter.com/capside">@capside</a></p>
+					<p style="float:right;font-size:400%;"><a href="http://www.twitter.com/ciberado">@ciberado</a></p>
+				</section>
+		
+				<section data-background="img/hierba.jpg" class="clean">
+					<h2 style="font-size:200%;">¡Gracias!</h2>
+					<img src="img/ninja-cat.png" alt="Microsoft Ninja Cat" width="41%" class="fragment roll-in">
+					<img src="img/richardstallman.png" alt="Richard stallman" class="fragment roll-in">					
+				</section>
+		
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				//parallaxBackgroundSize: '2100px 900px',
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+			
+		</script>
+
+	</body>
+</html>
